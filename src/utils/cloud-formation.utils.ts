@@ -56,7 +56,7 @@ export class CloudFormationUtils {
         Tags: glueJob.Tags,
         Timeout: glueJob.Timeout,
         MaxRetries: glueJob.MaxRetries,
-        MaxCapacity: glueJob.MaxCapacity
+        SecurityConfiguration: glueJob.SecurityConfiguration
       },
     };
     if (glueJob.DefaultArguments.customArguments) {
@@ -111,6 +111,7 @@ export class CloudFormationUtils {
           JobName: action.name,
           Arguments: action.args,
           Timeout: action.timeout,
+          SecurityConfiguration: action.SecurityConfiguration,
         };
       }
     );

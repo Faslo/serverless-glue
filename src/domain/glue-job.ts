@@ -32,6 +32,7 @@ export class GlueJob implements GlueJobInterface {
   Timeout: number;
   MaxRetries: number;
   SupportFiles: SupportFilesInterface[];
+  SecurityConfiguration?: string;
   
 
   constructor(job: GlueJobInterface) {
@@ -54,6 +55,7 @@ export class GlueJob implements GlueJobInterface {
     this.Timeout = job.Timeout;
     this.MaxRetries = job.MaxRetries;
     this.SupportFiles = job.SupportFiles;
+    this.SecurityConfiguration = job.SecurityConfiguration;
   }
 
   setScriptS3Location(s3url: string) {
