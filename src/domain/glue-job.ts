@@ -18,6 +18,7 @@ export class GlueJob implements GlueJobInterface {
     | "scala2-2.0";
   Description: string;
   role: string;
+  MaxCapacity?:number;
   MaxConcurrentRuns?: number;
   MaxCapacity: number;
   WorkerType?: "G1.X" | "G2.X" | undefined;
@@ -43,6 +44,7 @@ export class GlueJob implements GlueJobInterface {
     this.glueVersion = job.glueVersion;
     this.Description = job.Description;
     this.type = job.type;
+    this.MaxCapacity = job.MaxCapacity;
     this.MaxConcurrentRuns = job.MaxConcurrentRuns;
     this.MaxCapacity = job.MaxCapacity;
     this.MaxRetries = job.MaxRetries;
