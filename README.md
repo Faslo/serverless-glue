@@ -64,7 +64,6 @@ Glue:
       MaxConcurrentRuns: 3 # Optional
       WorkerType: Standard # Optional, G.1X | G.2X
       NumberOfWorkers: 1 # Optional
-      MaxCapacity: 1 # Optional, specify only when pythonshell job
       Connections: # Optional
         - some-conection-string
         - other-conection-string
