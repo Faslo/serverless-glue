@@ -9,6 +9,7 @@ export interface GlueJobInterface {
   glueVersion:
     | "python3-1.0"
     | "python3-2.0"
+    | "python3-3.0"
     | "python2-1.0"
     | "python2-0.9"
     | "scala2-1.0"
@@ -17,6 +18,7 @@ export interface GlueJobInterface {
   Description: string;
   role: string;
   MaxConcurrentRuns?: number;
+  MaxCapacity: number;
   WorkerType?: "G1.X" | "G2.X";
   NumberOfWorkers?: number;
   Connections?: string[];

@@ -10,6 +10,7 @@ export class GlueJob implements GlueJobInterface {
   glueVersion:
     | "python3-1.0"
     | "python3-2.0"
+    | "python3-3.0"
     | "python2-1.0"
     | "python2-0.9"
     | "scala2-1.0"
@@ -18,6 +19,7 @@ export class GlueJob implements GlueJobInterface {
   Description: string;
   role: string;
   MaxConcurrentRuns?: number;
+  MaxCapacity: number;
   WorkerType?: "G1.X" | "G2.X" | undefined;
   NumberOfWorkers?: number | undefined;
   Connections?: string[] | undefined;
@@ -41,6 +43,7 @@ export class GlueJob implements GlueJobInterface {
     this.Description = job.Description;
     this.type = job.type;
     this.MaxConcurrentRuns = job.MaxConcurrentRuns;
+    this.MaxCapacity = job.MaxCapacity;
     this.MaxRetries = job.MaxRetries;
     this.WorkerType = job.WorkerType;
     this.NumberOfWorkers = job.NumberOfWorkers;
@@ -72,6 +75,7 @@ export class GlueJob implements GlueJobInterface {
     glueVersion:
       | "python3-1.0"
       | "python3-2.0"
+      | "python3-3.0"
       | "python2-1.0"
       | "python2-0.9"
       | "scala2-1.0"

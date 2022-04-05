@@ -619,3 +619,5 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/node,linux,macos,windows,visualstudio,jetbrains+all
+
+ignore_package.json
