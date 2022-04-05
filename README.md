@@ -53,7 +53,8 @@ Glue:
   tempDirBucket: someBucket # optional, default = '{serverless.serviceName}-{provider.stage}-gluejobstemp'
   tempDirS3Prefix: some/s3/key/location/ # optional, default = ''. The job name will be appended to the prefix name
   jobs:
-    - name: super-glue-job # Required
+    - resourceName: SuperGlueJob # Required, you can use this parameter to reference the job in your serverless template. The value is converted to PascalCase
+      name: super-glue-job # Required
       scriptPath: src/script.py # Required script will be named with the name after '/' and uploaded to s3Prefix location
       Description: # Optional, string
       tempDir: true # Optional true | false

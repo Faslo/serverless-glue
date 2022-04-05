@@ -3,6 +3,7 @@ import { GlueJobInterface } from "../interfaces/glue-job.interface";
 import { SupportFilesInterface } from "../interfaces/support-files.interface";
 
 export class GlueJob implements GlueJobInterface {
+  resourceName: string;
   name: string;
   scriptPath: string;
   tempDir?: boolean;
@@ -38,6 +39,7 @@ export class GlueJob implements GlueJobInterface {
 
   constructor(job: GlueJobInterface) {
     this.DefaultArguments = job.DefaultArguments ?? {};
+    this.resourceName = job.resourceName;
     this.name = job.name;
     this.scriptPath = job.scriptPath;
     this.role = job.role;

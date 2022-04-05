@@ -74,7 +74,7 @@ export class ServerlessService {
       const jobCFTemplate = CloudFormationUtils.glueJobToCF(job);
       this.helperless.appendToTemplate(
         "resources",
-        StringUtils.toPascalCase(job.name),
+        StringUtils.toPascalCase(job.resourceName),
         jobCFTemplate
       );
     }

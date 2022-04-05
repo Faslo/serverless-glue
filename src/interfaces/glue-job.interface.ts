@@ -2,6 +2,7 @@ import { DefaultArgumentsInterface } from "./default-arguments.interface";
 import { SupportFilesInterface } from "./support-files.interface";
 
 export interface GlueJobInterface {
+  resourceName: string;
   name: string;
   scriptPath: string;
   tempDir?: boolean;
@@ -19,7 +20,6 @@ export interface GlueJobInterface {
   role: string;
   MaxCapacity?: number;
   MaxConcurrentRuns?: number;
-  MaxCapacity: number;
   WorkerType?: "G1.X" | "G2.X";
   NumberOfWorkers?: number;
   Connections?: string[];
