@@ -21,7 +21,6 @@ export class GlueJob implements GlueJobInterface {
   role: string;
   MaxCapacity?:number;
   MaxConcurrentRuns?: number;
-  MaxCapacity: number;
   WorkerType?: "G1.X" | "G2.X" | undefined;
   NumberOfWorkers?: number | undefined;
   Connections?: string[] | undefined;
@@ -48,7 +47,6 @@ export class GlueJob implements GlueJobInterface {
     this.type = job.type;
     this.MaxCapacity = job.MaxCapacity;
     this.MaxConcurrentRuns = job.MaxConcurrentRuns;
-    this.MaxCapacity = job.MaxCapacity;
     this.MaxRetries = job.MaxRetries;
     this.WorkerType = job.WorkerType;
     this.NumberOfWorkers = job.NumberOfWorkers;
