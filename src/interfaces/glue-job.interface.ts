@@ -4,6 +4,8 @@ import { SupportFilesInterface } from "./support-files.interface";
 export interface GlueJobInterface {
   resourceName: string;
   name: string;
+  pythonVersion?: string;
+  librarySet?: "analytics" | "default";
   scriptPath: string;
   tempDir?: boolean;
   type: "spark" | "pythonshell";
@@ -23,6 +25,7 @@ export interface GlueJobInterface {
   WorkerType?: "G1.X" | "G2.X";
   NumberOfWorkers?: number;
   Connections?: string[];
+  scriptS3LocationPrefix?: string | undefined;
   scriptS3Location?: string;
   commandName?: "glueetl" | "pythonshell";
   DefaultArguments: DefaultArgumentsInterface;

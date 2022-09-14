@@ -5,6 +5,8 @@ import { SupportFilesInterface } from "../interfaces/support-files.interface";
 export class GlueJob implements GlueJobInterface {
   resourceName: string;
   name: string;
+  pythonVersion?: string;
+  librarySet?: "analytics" | "default";
   scriptPath: string;
   tempDir?: boolean;
   type: "spark" | "pythonshell";
@@ -24,9 +26,9 @@ export class GlueJob implements GlueJobInterface {
   WorkerType?: "G1.X" | "G2.X" | undefined;
   NumberOfWorkers?: number | undefined;
   Connections?: string[] | undefined;
+  scriptS3LocationPrefix?: string | undefined;
   scriptS3Location?: string;
   commandName?: "glueetl" | "pythonshell";
-  pythonVersion?: string;
   glueVersionJob?: string;
   DefaultArguments: DefaultArgumentsInterface;
   Tags?: Map<string,string>;
@@ -41,6 +43,8 @@ export class GlueJob implements GlueJobInterface {
     this.resourceName = job.resourceName;
     this.name = job.name;
     this.scriptPath = job.scriptPath;
+    this.pythonVersion = job.pythonVersion;
+    this.librarySet = job.librarySet;
     this.role = job.role;
     this.glueVersion = job.glueVersion;
     this.Description = job.Description;
@@ -51,6 +55,7 @@ export class GlueJob implements GlueJobInterface {
     this.WorkerType = job.WorkerType;
     this.NumberOfWorkers = job.NumberOfWorkers;
     this.Connections = job.Connections;
+    this.scriptS3LocationPrefix = job.scriptS3LocationPrefix;
     this.defineCommandName(job.type);
     this.setGlueVersion(this.glueVersion);
     this.Tags = job.Tags;
@@ -87,9 +92,7 @@ export class GlueJob implements GlueJobInterface {
       | "scala2-2.0"
   ) {
     let parts = glueVersion.split("-");
-    let pythonVersion = parts[0].match(/\d/)?.toString();
     let language = parts[0].match(/[A-Za-z]*/)?.toString();
-    this.pythonVersion = pythonVersion;
     this.glueVersionJob = parts[1];
     this.DefaultArguments.jobLanguage = language;
   }

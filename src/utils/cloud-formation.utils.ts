@@ -22,6 +22,7 @@ export class CloudFormationUtils {
         },
         DefaultArguments: {
           "--job-language": glueJob.DefaultArguments?.jobLanguage,
+          "library-set": glueJob.librarySet,
           "--TempDir": glueJob.DefaultArguments?.tempDir ?? "",
           "--class": glueJob.DefaultArguments?.class,
           "--scriptLocation": glueJob.DefaultArguments?.scriptLocation,

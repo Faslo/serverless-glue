@@ -72,11 +72,21 @@ export class ServerlessService {
       await this.uploadJobScripts(job);
       await this.uploadSupportFiles(job);
       const jobCFTemplate = CloudFormationUtils.glueJobToCF(job);
-      this.helperless.appendToTemplate(
-        "resources",
-        StringUtils.toPascalCase(job.resourceName),
-        jobCFTemplate
-      );
+      if (job.resourceName) {
+        this.helperless.log(`Resource name specified: ${job.resourceName}`);
+        this.helperless.appendToTemplate(
+          "resources",
+          StringUtils.toPascalCase(job.resourceName),
+          jobCFTemplate
+        );
+      } else {
+        this.helperless.log(`Resource name not specified, using job name: ${StringUtils.toPascalCase(job.name)}`);
+        this.helperless.appendToTemplate(
+          "resources",
+          StringUtils.toPascalCase(job.name),
+          jobCFTemplate
+        );
+      }
     }
 
     if (
@@ -116,14 +126,38 @@ export class ServerlessService {
 
   async uploadJobScripts(job: GlueJob) {
     if (!this.config) throw new Error("Glue Config not found.");
+    
     const fileName = job.scriptPath.split("/").pop();
-    const params = {
-      Bucket: this.config.bucketDeploy,
-      Body: readFileSync(`./${job.scriptPath}`),
-      Key: `${this.config?.s3Prefix}${fileName}`,
-    };
-    await this.awsHelper.uploadFileToS3(params);
-    job.setScriptS3Location(`s3://${params.Bucket}/${params.Key}`);
+
+    if (job.scriptS3LocationPrefix) {
+
+      const params = {
+        Bucket: this.config.bucketDeploy,
+        Body: readFileSync(`./${job.scriptPath}`),
+        Key: `${job.scriptS3LocationPrefix}${fileName}`,
+      };
+
+      await this.awsHelper.uploadFileToS3(params);
+      job.setScriptS3Location(`s3://${params.Bucket}/${params.Key}`);
+      this.helperless.log(`Uploaded ${fileName} to: s3://${params.Bucket}/${params.Key}`);
+
+    } else if (this.config?.s3Prefix){
+
+      const params = {
+        Bucket: this.config.bucketDeploy,
+        Body: readFileSync(`./${job.scriptPath}`),
+        Key: `${this.config?.s3Prefix}${fileName}`,
+      };
+
+      await this.awsHelper.uploadFileToS3(params);
+      job.setScriptS3Location(`s3://${params.Bucket}/${params.Key}`);
+      this.helperless.log(`Uploaded ${fileName} to: s3://${params.Bucket}/${params.Key}`);
+
+    } else {
+
+      throw new Error("Either scriptS3LocationPrefix or s3Prefix must be specified.");
+
+    }
   }
 
   async uploadSupportFiles(job: GlueJob) {
